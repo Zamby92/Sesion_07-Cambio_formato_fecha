@@ -1,0 +1,17 @@
+[{$addFields: {
+ "FECHA_NUEVA2": {
+   "$concat": [
+    {$substr: ["$FECHA_DE_CONTRATO",0,6]},
+    "20",
+    {$substr: ["$FECHA_DE_CONTRATO",6,7]},
+    ]
+ }
+}}, {$addFields: {
+ "FECHA_DE_CONTRATO": {
+   "$dateFromString": {
+     "dateString": "$FECHA_DE_CONTRATO",
+     "format": "%d/%m/%Y"
+   }
+ }
+}}, {$out: 'contrataciones3'}]
+
