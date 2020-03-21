@@ -1,3 +1,4 @@
+##Por petición del profesor se realizo un cambio en las fecha en el archiv de contrataciones abiertas, y el cambio se hizo tanto en "FECHA_DE_ CONTRATOS" como en "FECHA_FIN_CONTRATOS"
 [{$addFields: {
  "FECHA_NUEVA2": {
    "$concat": [
@@ -14,4 +15,21 @@
    }
  }
 }}, {$out: 'contrataciones3'}]
+
+[{$addFields: {
+ "FECHA_NUEVA3": {
+   "$concat": [
+    {$substr: ["$FECHA_FIN_CONTRATO",0,6]},
+    "20",
+    {$substr: ["$FECHA_FIN_CONTRATO",6,7]},
+    ]
+ }
+}}, {$addFields: {
+ "FECHA_FIN_CONTRATO": {
+   "$dateFromString": {
+     "dateString": "$FECHA_FIN_CONTRATO",
+     "format": "%d/%m/%Y"
+   }
+ }
+}}, {$out: 'contrataciones4'}]
 
